@@ -1,6 +1,8 @@
-Stock Kitkat Kernel Source For Wiko Bloom , Micromax Unite 2 and other clones
+# infinity_kernel_micromax_a106
+>> Micromax A106 (Unite 2) upstreamed kernel v3.4.113. All new stuffs added including (OC, Gov, Hotplugs, cpio, io schedulers,etc). Thanks to my brother Manjot Sidhu for releasing Kernel Source.
+Custom Kitkat Kernel Source For Wiko Bloom , Micromax Unite 2 and other clones.
 ------
-Version :- 3.4.67 (kitkat)
+Version :- 3.4.113 (Kitkat)
 
 Status :- Stable
 
@@ -8,7 +10,7 @@ Bugs :- N/A
 
 Contributors
 ------
->GOD , U , Manjot Sidhu , Monty Kumar(helping) , Ranjan(my all time mentor) , Divyrajsinh Jadeja(Testing) , Anurag D'Cruz(encouraged me) and each and every person of unite 2 who inspired me to do this ... Thank You Every Much 
+>GOD , Sunmughan Swamy(Maintainer) , Manjot Sidhu (Created this Kernel Source) , Monty Kumar(helping) , Ranjan(my all time mentor) , Divyrajsinh Jadeja(Testing) , Anurag D'Cruz(encouraged me) and each and every person of unite 2 who inspired me to do this ... Thank You Every Much 
 
 Introduction
 ------
@@ -24,7 +26,7 @@ Here are some codenames to be used for these clones
 
 Requirements
 ------
-Ubuntu 10.0 + 
+Ubuntu 10.0 + [Recommended(Ubuntu 16.04 LTS/Linux Mint 18.1 Cinnamon)] 
 
 Essential kernel Packages
 
@@ -38,13 +40,13 @@ Setting Up The Build Environment
 
 1. Essential Kernel Packages
  ```
- sudo apt-get install git gnupg flex bison gperf build-essential zip curl libc6-dev libncurses5-dev:i386 x11proto-core-dev libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-glx:i386 libgl1-mesa-dev g++-multilib mingw32 tofrodos python-markdown libxml2-utils xsltproc zlib1g-dev:i386 git-core lzop ccache gnupg flex bison gperf build-essential zip curl zlib1g-dev zlib1g-dev:i386 libc6-dev lib32ncurses5 lib32z1 lib32bz2-1.0 lib32ncurses5-dev x11proto-core-dev libx11-dev:i386 libreadline6-dev:i386 lib32z-dev libgl1-mesa-glx:i386 libgl1-mesa-dev g++-multilib mingw32 tofrodos python-markdown libxml2-utils xsltproc readline-common libreadline6-dev libreadline6 lib32readline-gplv2-dev libncurses5-dev lib32readline5 lib32readline6 libreadline-dev libreadline6-dev:i386 libreadline6:i386 bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev lib32bz2-dev libsdl1.2-dev libesd0-dev squashfs-tools pngcrush schedtool libwxgtk2.8-dev python gcc g++ cpp gcc-4.8 g++-4.8 && sudo ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so.1 /usr/lib/i386-linux-gnu/libGL.so
+sudo apt-get install mingw-w64 git gnupg flex bison gperf build-essential zip curl libc6-dev libncurses5-dev:i386 x11proto-core-dev libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-glx:i386 libgl1-mesa-dev g++-multilib mingw32 tofrodos python-markdown libxml2-utils xsltproc zlib1g-dev:i386 git-core lzop ccache gnupg flex bison gperf build-essential zip curl zlib1g-dev zlib1g-dev:i386 libc6-dev lib32ncurses5 lib32z1 lib32bz2-1.0 lib32ncurses5-dev x11proto-core-dev libx11-dev:i386 libreadline6-dev:i386 lib32z-dev libgl1-mesa-glx:i386 libgl1-mesa-dev g++-multilib mingw32 tofrodos python-markdown libxml2-utils xsltproc readline-common libreadline6-dev libreadline6 lib32readline-gplv2-dev libncurses5-dev lib32readline5 lib32readline6 libreadline-dev libreadline6-dev:i386 libreadline6:i386 bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev lib32bz2-dev libsdl1.2-dev libesd0-dev squashfs-tools pngcrush schedtool libwxgtk2.8-dev python gcc g++ cpp gcc-4.8 g++-4.8 && sudo ln -s /usr/lib/i386-linux-gnu/mesa/libGL.so.1 /usr/lib/i386-linux-gnu/libGL.so
  ```
  >NOTE :- Some Packages will not be available depending on which ubuntu version u are , so the packages u will get error just remove them from commands
  
  
  2. Go to etc/udev/rules.d/51-android.rules  and add these codes at the end
- >NOTE :- if u get permission eror then remember , ```sudo chmod 777 -R 51-android.rules```
+ >NOTE :- If file doesnot exist create one ... if u get permission eror then give permsission to folder , ```sudo chmod 777 -R rules.d```
  ```
  # adb protocol on passion (Nexus One)
 SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", ATTR{idProduct}=="4e12", MODE="0600", OWNER="<username>"
@@ -126,16 +128,16 @@ git clone https://github.com/manjotsidhu/android_kernel_a106_wiko.git
 mv android_kernel_a106_wiko ~/kernel_source
 ```
 
-3. Now Lets get the toolchain (arm-linux-androideabi-4.6)
+3. Now Lets get the toolchain (arm-linux-androideabi-4.7)
 ```
 cd kernel_source
-git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.6
+git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.7
 ```
 
 4. Some Commands to make kernel source know that we are compiling for a device :p
 > NOTE:- MAKE SURE TO REPLACE CODENAME 
 ```
-export TARGET_BUILD_VARIANT=user TARGET_PRODUCT=(codename) MTK_ROOT_CUSTOM=../mediatek/custom/ TARGET_KERNEL_VERSION=(codename) &&export PATH=~/arm-linux-androideabi-4.6/bin:$PATH&&export CROSS_COMPILE=arm-linux-androideabi-&&export ARCH=arm
+export TARGET_BUILD_VARIANT=user TARGET_PRODUCT=(codename) MTK_ROOT_CUSTOM=../mediatek/custom/ TARGET_KERNEL_VERSION=(codename) &&export PATH=~/kernel_source/arm-linux-androideabi-4.7/bin:$PATH&&export CROSS_COMPILE=arm-linux-androideabi-&&export ARCH=arm
 ````
 
 5. The Main Step 
@@ -143,7 +145,7 @@ export TARGET_BUILD_VARIANT=user TARGET_PRODUCT=(codename) MTK_ROOT_CUSTOM=../me
 ```
 ./mk (codename) n k
 ```
-It may time 5-10 mins max 
+It may take time upto 10 mins max 
 
 6. The compiled Kernel Sourced is generated in out folder ... If u get error then the error log is in ```out/target/product/(codename)_kernel_err.log ```
 >Check error log carefully , your mistakes will be highlighted
@@ -169,5 +171,5 @@ chmod a+x mkimage
 
 10. Now in order to test it replace ```zImage_with_header ``` with ```kernel``` in your stock boot of stock rom ...
 
-Thank You Very Much ...
-Powered By Manjot Sidhu
+Thank You Very Much Manjot Sidhu ...
+Maintained by: Sunmughan Swamy <3
