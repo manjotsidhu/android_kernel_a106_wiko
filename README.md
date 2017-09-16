@@ -34,7 +34,7 @@ Common Sense (which is not so common)
 
 Setting Up The Build Environment
 ------
->NOTE :- Do first ```sudo apt get-update``` before installing any packages 
+>NOTE :- Do first ```sudo apt-get update``` before installing any packages 
 
 1. Essential Kernel Packages
  ```
